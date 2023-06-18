@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 class BookController {
   static async listpage(req, res) {
     const result = await prisma.book.findMany({});
-    res.render("page/list", { books: result });
+    res.render("pages/list", { books: result });
   }
 
   static async detailpage(req, res) {
