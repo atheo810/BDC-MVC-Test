@@ -38,9 +38,9 @@ const data = [
 ];
 
 async function main() {
-    data.forEach(async (buku) => {
-      await prisma.buku.create({
-        data: buku,
+    data.forEach(async (book) => {
+      await prisma.book.create({
+        data: book,
       });
     });
     console.log("Seed data success");
