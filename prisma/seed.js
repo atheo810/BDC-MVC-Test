@@ -36,3 +36,22 @@ const data = [
 
     }
 ];
+
+async function main() {
+    data.forEach(async (buku) => {
+      await prisma.buku.create({
+        data: buku,
+      });
+    });
+    console.log("Seed data success");
+  }
+  
+  main()
+    .then(async () => {
+      await prisma.$disconnect();
+    })
+    .catch(async (e) => {
+      console.error(e);
+      await prisma.$disconnect();
+      process.exit(1);
+    });
