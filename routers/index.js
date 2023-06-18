@@ -1,17 +1,12 @@
 const { Router } = require("express");
+const bookRouter = require('./book.router');
 
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.render("pages/index");
+  res.status(200).json({ msg: "Server connected" });
 });
 
-router.get("/", (req, res) => {
-  res.render("pages/about");
-});
-
-router.use((req, res, next) => {
-    res.status(404).render("pages/404")
-});
+router.use(bookRouter);
 
 module.exports = router;
