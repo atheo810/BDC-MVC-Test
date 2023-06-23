@@ -3,6 +3,7 @@ const { Router } = require("express");
 const auth = require("../middlewares/auth");
 const bookRouter = require("./book.router");
 const authRouter = require("./auth.router");
+const categoryRouter = require("./category.router");
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.get("/", (req, res) => {
 });
 
 router.use(bookRouter);
+router.use(categoryRouter);
 
 module.exports = router;

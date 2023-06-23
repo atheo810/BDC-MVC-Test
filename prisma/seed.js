@@ -37,7 +37,7 @@ const books = [
     desc: "buku anime yang menceritakan cara berkeluarga",
     price: 45000,
     img: "https://i.postimg.cc/90X3TDRP/Kaifuku-Jutsushi-no-Yarinaoshi-Keyaru.jpg",
-    category_id: 1,
+    category_id: 3,
   },
 ];
 
