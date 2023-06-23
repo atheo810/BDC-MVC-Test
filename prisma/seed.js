@@ -1,57 +1,73 @@
-const { PrismaClient } = require("@prisma/client")
+const { PrismaClient } = require("@prisma/client");
+const { generateHash } = require("../lib/bcrypt");
 
 const prisma = new PrismaClient();
 
-const data = [
-    {
-        name: "kuzu no honkai",
-        category: "anime",
-        qty: 20,
-        available : true,
-        desc: "buku anime yang menceritakan proses kedewasaan",
-        price: 45000,
-        img: "https://cdn.myanimelist.net/images/anime/5/83937.jpg"
+const categories = [
+  { name: "Harem" },
+  { name: "Psikologi" },
+  { name: "Dewasa" },
+];
 
-    },
-    
-    {
-        name: "Redo Healer",
-        category: "anime",
-        qty: 30,
-        available : true,
-        desc: "buku anime yang menceritakan proses menyembuhkan",
-        price: 45000,
-        img: "https://i.postimg.cc/90X3TDRP/Kaifuku-Jutsushi-no-Yarinaoshi-Keyaru.jpg"
+const books = [
+  {
+    name: "kuzu no honkai",
+    qty: 20,
+    available: true,
+    desc: "buku anime yang menceritakan proses kedewasaan",
+    price: 45000,
+    img: "https://cdn.myanimelist.net/images/anime/5/83937.jpg",
+    category_id: 1,
+  },
 
-    },
+  {
+    name: "Redo Healer",
+    qty: 30,
+    available: true,
+    desc: "buku anime yang menceritakan proses menyembuhkan",
+    price: 45000,
+    img: "https://i.postimg.cc/90X3TDRP/Kaifuku-Jutsushi-no-Yarinaoshi-Keyaru.jpg",
+    category_id: 2,
+  },
 
-    {
-        name: "Mushoku Tensei",
-        category: "anime",
-        qty: 30,
-        available : true,
-        desc: "buku anime yang menceritakan cara berkeluarga",
-        price: 45000,
-        img: "https://i.postimg.cc/90X3TDRP/Kaifuku-Jutsushi-no-Yarinaoshi-Keyaru.jpg"
-
-    }
+  {
+    name: "Mushoku Tensei",
+    qty: 30,
+    available: true,
+    desc: "buku anime yang menceritakan cara berkeluarga",
+    price: 45000,
+    img: "https://i.postimg.cc/90X3TDRP/Kaifuku-Jutsushi-no-Yarinaoshi-Keyaru.jpg",
+    category_id: 1,
+  },
 ];
 
 async function main() {
-    data.forEach(async (book) => {
-      await prisma.book.create({
-        data: book,
-      });
+  for (const category of categories) {
+    await prisma.category.create({
+      data: category,
     });
-    console.log("Seed data success");
   }
-  
-  main()
-    .then(async () => {
-      await prisma.$disconnect();
-    })
-    .catch(async (e) => {
-      console.error(e);
-      await prisma.$disconnect();
-      process.exit(1);
+  for (const book of books) {
+    await prisma.book.create({
+      data: book,
     });
+  }
+
+  await prisma.user.create({
+    data: {
+      username: "admin",
+      password: await generateHash("admin"),
+    },
+  });
+  console.log("Seed data success");
+}
+
+main()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
