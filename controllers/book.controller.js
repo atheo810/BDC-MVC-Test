@@ -2,9 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 class BookController {
+  
   static async listpage(req, res) {
     const result = await prisma.book.findMany({});
-    res.render("pages/list", { books: result });
+    res.render("pages/book/list", { books: result });
   }
 
   static async detailpage(req, res) {
@@ -13,11 +14,11 @@ class BookController {
         id: Number(req.params.id),
       },
     });
-    res.render("pages/detail", { book: result });
+    res.render("pages/book/detail", { book: result });
   }
 
   static async createPage(req, res) {
-    res.render("pages/add");
+    res.render("pages/book/add");
   }
 
   static async store(req, res) {
@@ -38,10 +39,16 @@ class BookController {
   static async editPage(req, res) {
     const result = await prisma.book.findUnique({
       where: {
-        id: Number(req.body.id),
+        id: Number(req.params.id),
       },
     });
-    res.render("pages/edit", { book: result });
+    const resultCategory = await prisma.category.findMany({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
+
+    res.render("pages/book/edit", { book: result, category: resultCategory });
   }
 
   static async update(req, res) {
@@ -51,12 +58,12 @@ class BookController {
       },
       data: {
         name: req.body.name,
-        category: req.body.category,
         qty: Number(req.body.qty),
         available: req.body.available === "true" ? true : false,
         price: Number(req.body.price),
         img: req.body.img,
         desc: req.body.description,
+        category_id: Number(req.body.category)
       },
     });
 

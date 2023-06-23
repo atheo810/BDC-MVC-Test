@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../../setups/head") %>
+</head>
+
+<body>
+  <%- include("../../components/navbar") %>
+
+  <section id="home-content" class="container">
+    <div class="mt-5">
+      <div class="align-items-center d-flex justify-content-between">
+        <h3>Edit Book Data - <%= book.name %> </h3>
+
+        <a href="/book" class="btn btn-outline-danger">Cancel</a>
+      </div>
+
+      <form 
+        class="mt-4" 
+        action="/book/<%= book.id %>/edit" 
+        method="post" 
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3 row justify-content-start">
+          <div class="col-12 col-sm-6">
+            <label for="name" class="form-label">Name</label>
+
+            <input type="text" name="name" value="<%= book.name %>" class="form-control" id="name" placeholder="Ex. Tanjiro Yaiba" required />
+          </div>
+
+        </div>
+
+        <div class="mb-3 row justify-content-start">
+          <div class="col-12 col-sm-6">
+            <label for="size" class="form-label">Quantity</label>
+
+            <input type="text" name="qty" value="<%= book.qty %>" class="form-control" id="size" placeholder="Ex. 32" required />
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <label for="size" class="form-label">Status</label>
+
+            <select name="available" class="form-select" aria-label="Default select example" required>
+              <option value="true" <%= book.available === true ? "selected" : "" %>>Available</option>
+              <option value="false" <%= book.available === false ? "selected" : "" %>>Non-Availabe</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3 row justify-content-start align-items-end">
+          <div class="col-12 col-sm-6">
+            <label for="price" class="form-label">Price</label>
+
+            <input
+              name="price"
+              value="<%= book.price %>"
+              type="number"
+              class="form-control"
+              id="price"
+              placeholder="Ex. 10000"
+              required
+            />
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <img id="uploadPreview" src="/uploads/<%= book.img %>" class="my-3" style="width: 100px; height: 100px;" />
+
+            <label for="img" class="form-label d-block">Image File</label>
+            <input name="img" type="file" class="form-control" id="img"/>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label"> Category </label>
+          <select
+            name="category"
+            class="form-select"
+            aria-label="Default select example"
+            required
+          >
+          <option value="">Select this for option category</option>
+          <% category.forEach((categories) =>{ %>
+              <% if (categories.id === categories.category_id) {%>
+                  <option selected value="<%= categories.id  %>"> <%= categories.name %></option>
+              <% }else { %>
+                <option value="<%= categories.id  %>"><%= categories.name %></option>
+                <% } %> 
+            <%}) %>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label"> Description </label>
+
+          <textarea name="description" class="form-control" id="description" rows="3" required><%= book.desc %></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-outline-primary mt-4">
+          Update
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <script src="/scripts/previewImageScript.js" />
+
+  <%- include("../../setups/script") %>
+</body>
+
+</html>
