@@ -12,32 +12,35 @@ const categories = [
 const books = [
   {
     name: "kuzu no honkai",
+    merk: "manga",
     qty: 20,
     available: true,
     desc: "buku anime yang menceritakan proses kedewasaan",
     price: 45000,
     img: "https://cdn.myanimelist.net/images/anime/5/83937.jpg",
-    category_id: 1,
+    categoryId: 1,
   },
 
   {
     name: "Redo Healer",
+    merk: "manga",
     qty: 30,
     available: true,
     desc: "buku anime yang menceritakan proses menyembuhkan",
     price: 45000,
     img: "https://i.postimg.cc/90X3TDRP/Kaifuku-Jutsushi-no-Yarinaoshi-Keyaru.jpg",
-    category_id: 2,
+    categoryId: 2,
   },
 
   {
     name: "Mushoku Tensei",
+    merk: "manga",
     qty: 30,
     available: true,
     desc: "buku anime yang menceritakan cara berkeluarga",
     price: 45000,
     img: "https://i.postimg.cc/90X3TDRP/Kaifuku-Jutsushi-no-Yarinaoshi-Keyaru.jpg",
-    category_id: 3,
+    categoryId: 3,
   },
 ];
 

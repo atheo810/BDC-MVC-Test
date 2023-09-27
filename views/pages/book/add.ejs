@@ -30,11 +30,23 @@
                 name="name"
                 class="form-control"
                 id="name"
-                placeholder="Ex. Tanjiro yaiba"
+                placeholder="Kuzu no Honkai"
                 required
               />
             </div>
 
+            <div class="col-12 col-sm-6">
+              <label for="brand" class="form-label">Merk</label>
+
+              <input
+                type="text"
+                name="merk"
+                class="form-control"
+                id="brand"
+                placeholder="Manga"
+                required
+              />
+            </div>
           </div>
 
           <div class="mb-3 row justify-content-start">
@@ -95,17 +107,15 @@
           <div class="mb-3">
             <label for="description" class="form-label"> Category </label>
             <select
-              name="category"
+              name="categoryId"
               class="form-select"
               aria-label="Default select example"
               required
             >
-              <option value="">Select this for option category</option>
-              <% categories.forEach((categories) =>{ %>
-              <option value="<%= categories.id %>">
-                <%= categories.name %>
-              </option>
-              <%}) %>
+              <option value="">Open this for select category</option>
+              <% categories.forEach((category) => { %>
+              <option value="<%= category.id %>"><%= category.name %></option>
+              <% }) %>
             </select>
           </div>
 
@@ -121,7 +131,7 @@
             ></textarea>
           </div>
 
-          <button type="submit" class="btn btn-outline-primary mt-4">
+          <button type="submit" class="btn btn-outline-primary my-4">
             Add
           </button>
         </form>

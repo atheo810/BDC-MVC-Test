@@ -2,7 +2,6 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 class BookController {
-  
   static async listpage(req, res) {
     const result = await prisma.book.findMany({});
     res.render("pages/book/list", { books: result });
@@ -18,7 +17,8 @@ class BookController {
   }
 
   static async createPage(req, res) {
-    res.render("pages/book/add");
+    const categories = await prisma.category.findMany();
+    res.render("pages/book/add", { categories: categories });
   }
 
   static async store(req, res) {
@@ -29,8 +29,9 @@ class BookController {
         qty: Number(req.body.qty),
         available: req.body.available === "true" ? true : false,
         price: Number(req.body.price),
-        img: req.body.img,
+        img: req.file.filename,
         desc: req.body.description,
+        categoryId: Number(req.body.category),
       },
     });
     res.redirect("/book");
@@ -63,7 +64,7 @@ class BookController {
         price: Number(req.body.price),
         img: req.body.img,
         desc: req.body.description,
-        category_id: Number(req.body.category)
+        category_id: Number(req.body.category),
       },
     });
 

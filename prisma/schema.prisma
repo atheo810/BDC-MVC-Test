@@ -11,17 +11,18 @@ datasource db {
 }
 
 model book {
-  id        Int      @id @default(autoincrement())
-  createAt  DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  name      String
-  qty       Int
-  available Boolean
-  desc      String
-  price     Int
-  img       String
-  category_id  Int
-  category Category @relation(fields: [category_id], references: [id])
+  id         Int      @id @default(autoincrement())
+  createAt   DateTime @default(now())
+  updateAt   DateTime @updatedAt
+  name       String
+  merk       String
+  qty        Int
+  available  Boolean
+  desc       String
+  price      Int
+  img        String
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
 }
 
 model User {
@@ -34,8 +35,8 @@ model User {
 
 model Category {
   id       Int      @id @default(autoincrement())
-  name     String   @unique
   createAt DateTime @default(now())
   updateAT DateTime @updatedAt
-  books book[]
+  name     String   @unique
+  books    book[]
 }
