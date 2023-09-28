@@ -23,6 +23,7 @@ app.use(
     secret: "cache scret code",
     resave: false,
     saveUninitialized: false,
+    cookie: { maxAge: 60000 },
   })
 );
 app.use(flash());

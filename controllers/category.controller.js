@@ -3,26 +3,29 @@ const prisma = new PrismaClient();
 
 class CategoryController {
   static async listPage(req, res) {
-    const result = await prisma.book.findMany({
-      include: {
-        category: true,
-      },
-    });
-    res.render("pages/create/list", { categories: result });
+    const result = await prisma.category.findMany({});
+    res.render("pages/category/list", { categories: result });
     console.log(result);
   }
 
   static async createPage(req, res) {
-    res.render("pages/create/create");
+    res.render("pages/category/create");
   }
 
   static async store(req, res) {
-    await prisma.category.create({
-      data: {
-        nama: req.body.name,
-      },
-    });
-    res.redirect("category");
+    try {
+      await prisma.category.create({
+        data: {
+          name: req.body.name,
+        },
+      });
+      res.redirect("/category");
+    } catch (err) {
+      if (err.code === "P2002") {
+        req.flash("error", "A category with this name is already in use");
+        res.redirect("/category/create");
+      }
+    }
   }
 
   static async editPage(req, res) {
@@ -31,7 +34,7 @@ class CategoryController {
         id: Number(req.params.id),
       },
     });
-    res.render("pages/create/edit", { category: result });
+    res.render("pages/category/edit", { category: result });
   }
 
   static async update(req, res) {

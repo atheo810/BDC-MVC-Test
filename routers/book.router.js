@@ -1,6 +1,9 @@
 const { Router } = require("express");
-const BookApiController = require("../controllers/bookApi.controller");
+
 const BookController = require("../controllers/book.controller");
+const BookApiController = require("../controllers/bookApi.controller");
+
+const upload = require("../middlewares/upload");
 
 const { getDetailBook, addBook, deleteBook, editBook, getBook } =
   BookApiController;

@@ -28,12 +28,12 @@
           </tr>
         </thead>
         <tbody>
-          <% books.forEach((book) => { %>
+          <% books.map((book) => { %>
           <tr>
             <th scope="row"><%= book.id %></th>
             <td><%= book.name %></td>
             <td><%= book.qty %></td>
-            <td><%= book.category_id %></td>
+            <td><%= book.category.name %></td>
             <td><%= book.available ? "In-Stock" : "Out-Stock" %></td>
             <td class="d-flex gap-2">
               <a href="/book/<%= book.id %>" class="btn btn-sm btn-light">

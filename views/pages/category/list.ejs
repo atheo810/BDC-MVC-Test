@@ -21,10 +21,10 @@
           </tr>
         </thead>
         <tbody>
-          <% categories.forEach((category) => { %>
+          <% categories.map((category) => { %>
           <tr>
             <th scope="row"><%= category.id %></th>
-            <td><%= category.category.name %></td>
+            <td><%= category.name %></td>
             <td class="d-flex gap-2">
               <a
                 href="/category/<%= category.id %>/edit"
