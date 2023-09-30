@@ -8,8 +8,8 @@ const categoryRouter = require("./category.router");
 
 const router = Router();
 
-// router.use(authRouter);
-// router.use(auth);
+router.use(authRouter);
+router.use(auth);
 
 router.get("/", (req, res) => {
   res.render("pages/index");
